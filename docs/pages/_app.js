@@ -1,7 +1,5 @@
-import {useEffect} from "react";
+import { useEffect } from "react";
 
-import Header from "../components/header";
-import { ThemeProvider } from "../components/providers";
 import "../styles.css";
 
 function MyApp({ Component, pageProps }) {
@@ -11,12 +9,7 @@ function MyApp({ Component, pageProps }) {
     };
   }, []);
 
-  return (
-    <ThemeProvider>
-      <Header />
-      <Component {...pageProps} />
-    </ThemeProvider>
-  );
+  return <Component {...pageProps} />;
 }
 
 export default MyApp;
