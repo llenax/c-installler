@@ -25,13 +25,12 @@ export class Client {
       // );
       this.props.set(k, v);
     }
-    return this._props;
+    return this.props;
   }
 
   public delProps(k: string) {
     if (typeof k === "string") {
       this.props.delete(k);
-      delete this._props[k];
     }
   }
 
