@@ -7,7 +7,7 @@ export class Handler {
 
   public client: DiscordJS.Client;
 
-  constructor(settings: any) {
+  constructor(settings: any = {}) {
     this.listeners = {};
 
     this.settings = {
