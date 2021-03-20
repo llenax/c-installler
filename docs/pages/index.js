@@ -14,7 +14,7 @@ ci.discord.load(function ping(req){\n\
   return (
     <>
       <Head>
-        <title>C-INSTALLER</title>
+        <title>C-INSTALLER </title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <nav>
@@ -30,7 +30,7 @@ ci.discord.load(function ping(req){\n\
       </nav>
       <main>
         <div className="markdown">
-          <h1>C-INSTALLER INTRODUCTION</h1>
+          <h1>this is just for test</h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
             fermentum massa vel dui pharetra, hendrerit pharetra est finibus.
