@@ -14,7 +14,7 @@ ci.discord.load(function ping(req){\n\
   return (
     <>
       <Head>
-        <title>C-Installer</title>
+        <title>C-INSTALLER</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <nav>
