@@ -4,24 +4,28 @@ import * as DiscordJS from "discord.js";
 export class Handler {
   private listeners: any;
   private settings: any;
+  private client: DiscordJS.Client;
 
-  public client: DiscordJS.Client;
-
-  constructor(settings: any = {}) {
+  constructor(client: DiscordJS.Client, settings: any = {}) {
     this.listeners = {};
+    this.settings = {};
 
-    this.settings = {
+    Object.assign(this.settings, {
       prefix: settings.prefix || ["!"],
       cs: null,
       dm: null,
-    };
+    });
 
     if (!Array.isArray(this.settings.prefix)) {
       throw new TypeError("Prefix cannot be anything except string Array.");
     }
-    this.listener = this.listener.bind(this);
+    this._handler = this._handler.bind(this);
 
-    this.client = new DiscordJS.Client();
+    this.client = client;
+  }
+
+  public listen() {
+    this.client.on("message", this._handler);
   }
 
   public get commands() {
@@ -29,23 +33,26 @@ export class Handler {
   }
 
   public loadCommand(fn: any) {
-    this.listeners[fn.name] = fn;
+    if (typeof fn === "function") {
+      this.listeners[fn.name] = fn;
+    }
+  }
+
+  public loadCommands(fnArray: Array<any>) {
+    if (Array.isArray(fnArray)) {
+      fnArray.forEach((fn) => {
+        if (typeof fn === "function") {
+          this.listeners[fn.name] = fn;
+        }
+      });
+    }
   }
 
   public unloadCommand(name: string) {
     delete this.listeners[name];
   }
 
-  public login(token: string) {
-    this.client.on("message", this.listener);
-    if (token) {
-      this.client.login(token);
-    } else {
-      this.client.login();
-    }
-  }
-
-  private listener(message: DiscordJS.Message) {
+  private _handler(message: DiscordJS.Message) {
     if (message.author.bot) return;
 
     const contentArray: Array<string> = message.content.trim().split(/ +/g);
@@ -62,12 +69,9 @@ export class Handler {
 
     const cmd: string = Utils.removeStr(cmdString, cmdString.indexOf(prefix));
 
-    if (cmd && message.content.startsWith(prefix)) {
+    if (prefix && cmd) {
       if (cmd in this.listeners) {
-        this.listeners[cmd].call(this, {
-          msg: message,
-          args,
-        });
+        this.listeners[cmd].call(this, { message, args });
       }
     }
   }

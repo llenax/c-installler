@@ -1,10 +1,10 @@
 {
-  "name": "c-installer",
+  "name": "djs-unofficial-ch",
   "repository": {
     "type": "git",
     "url": "https://github.com/llenax/c-installler"
   },
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "",
   "main": "dist/index.js",
   "type": "commonjs",
